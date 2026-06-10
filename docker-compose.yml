@@ -1,0 +1,44 @@
+services:
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: rag-postgres
+
+    environment:
+      POSTGRES_DB: ragdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5422:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  ollama:
+    image: ollama/ollama
+    container_name: rag-ollama
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ollama_data:/root/.ollama
+
+  spring-app:
+    image: enterprise-rag-assistant:latest
+    container_name: rag-app
+
+    env_file:
+      - .env
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+      - ollama
+
+volumes:
+  postgres_data:
+  ollama_data:

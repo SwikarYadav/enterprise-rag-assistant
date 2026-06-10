@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/ragdb
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+
+  ai:
+    openai:
+      api-key: ${GROQ_API_KEY}
+      base-url: https://api.groq.com/openai
+
+      chat:
+        options:
+          model: llama-3.3-70b-versatile
+
+    ollama:
+      base-url: http://ollama:11434
+
+      embedding:
+        options:
+          model: nomic-embed-text
+
+
+
+server:
+  port: 8080
