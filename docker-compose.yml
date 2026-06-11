@@ -26,7 +26,7 @@ services:
       - ollama_data:/root/.ollama
 
   spring-app:
-    image: enterprise-rag-assistant:latest
+    build: .
     container_name: rag-app
 
     env_file:
