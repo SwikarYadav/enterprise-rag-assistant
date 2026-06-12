@@ -4,7 +4,6 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 @Service
 public class ChatService {
 
@@ -18,9 +17,13 @@ public class ChatService {
                 .build();
     }
 
-    public String ask(String question) {
+    public String ask(
+            String systemPrompt,
+            String userPrompt) {
+
         return chatClient.prompt()
-                .user(question)
+                .system(systemPrompt)   // <-- NEW
+                .user(userPrompt)
                 .call()
                 .content();
     }
